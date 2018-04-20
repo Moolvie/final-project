@@ -12,7 +12,7 @@
 
 <?php
 	
-	$dbName = "Songs";
+	$dbName = "songs";
 	$showForm = false;
 	
 	// Connect to the database
@@ -50,13 +50,18 @@
 		// Submission of new song
 		if(isset($_POST['SubmitSong']))
 		{
-			// Add the new artist and display 
+			// Add the new song and display 
+			
+			include_once("addFunctions.php");
 			
 			// Holds all of the entered data
 			$artistID = (int)$_POST['ArtistID'];
+			$albumID = (int)$_POST['AlbumID'];
 			$songTitle = $_POST['SongTitle'];
 			$songLength = $_POST['SongLength'];
 			$songYear = (int)$_POST['SongYear'];
+			$songFile = $_FILES['SongFile']['name'];
+			$temp = $_FILES['SongFile']['tmp_name'];
 			
 			// Regex pattern for the duration entry
 			$timePattern = '/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/';
@@ -79,18 +84,27 @@
 			elseif ($artistID == 'Select Artist' ||
 				$artistID == '') // If blank ID
 				echo '<p>You must select an <u>artist</u></p>';
+			elseif (!(validateFile("SongFile")) === true) // If valid 
+				echo "<p>File not valid</p>";
 			else
 			{
-				include_once("addFunctions.php");
 				// Build query for artist Table
 				$addSong = $dbConnect->query("SELECT * FROM song ".
 					"WHERE ArtistID = $artistID AND ".
 					"SongTitle = '$songTitle' AND ".
 					"SongLength= '$songLength' AND ".
-					"SongYear= '$songYear'");
+					"SongYear= '$songYear' AND ".
+					"SongFile= '$songFile'");
 				
-				// Add the new artist
-				AddSong($addSong, $dbConnect, $artistID,$songLength, $songTitle, $songYear);
+				// Add the new artist to the database
+				AddSong($addSong, $dbConnect, 
+						$artistID, $albumID, 
+						$songLength, $songTitle,
+						$songYear, $songFile);
+				
+				// Upload Song file to "Upload" folder
+				move_uploaded_file($temp, "upload/".$songFile);
+				echo "<p>\"$songTitle\" has been successfully uploaded</p>";
 			}
 		}
 		else
@@ -119,7 +133,8 @@
 					"WHERE ArtistID = $artistID AND ".
 					"AlbumTitle = '$albumTitle' ");
 				// Add the New Album
-				AddAlbum($addAlbum, $dbConnect, $albumTitle, $artistID);
+				AddAlbum($addAlbum, $dbConnect,
+						$albumTitle, $artistID);
 			}
 		}
 		else
@@ -140,9 +155,14 @@
 					<input type="reset">
 				</fieldset>
 			</FORM>
+			
 			<br>
+			
 			<!-- Submit New Song-->
-			<form method="post" action="AddRecord.php">
+			<form method="post" action="AddRecord.php" enctype="multipart/form-data">
+				<?php
+					include("addFunctions.php");
+				?>
 				<fieldset style= width:25%>
 					<legend><b><u>Add New Song</u></b></legend>
 					<p>
@@ -158,21 +178,25 @@
 						<INPUT type="text" name="SongYear">
 					</p>
 					<p>
-						<LABEL>Artist ID (Which artist?)</Label>
+						<LABEL>Artist (Which artist?)</Label>
 						<?php
-						$result = @mysqli_query($dbConnect, "select ArtistID, ArtistName from artist");
-						echo "<select name='ArtistID'>";
-						echo '<option>Select Artist</option>';
-						while ($row = $result->fetch_assoc()) {           
-								echo '<option value="'.$row['ArtistID'].'">'.$row['ArtistName'].'</option>';
-						}
-			
-						echo "</select>";
+							GetArtistList($dbConnect);
 						?>
+					</p>
+					<p>
+						<label>Album (optional)</label>
+						<?php
+							GetAlbumList($dbConnect);
+						?>
+					</p>
+					<p>
+						<LABEL>Song File </Label>
+						<INPUT type="file" name="SongFile">
 					</p>
 					<input type="submit" name="SubmitSong">
 					<input type="reset"><br>
 				</fieldset>
+				
 			</form>
 			<br>
 			
@@ -185,17 +209,10 @@
 						<INPUT type="text" name="AlbumTitle">
 					</p>
 					<p>
-					<LABEL>Artist ID (Which artist?)</Label>
+					<LABEL>Artist (Which artist?)</Label>
 						<?php
-						$result = @mysqli_query($dbConnect, "select ArtistID, ArtistName from artist");
-						echo "<select name='ArtistID'>";
-						echo '<option>Select Artist</option>';
-						while ($row = $result->fetch_assoc()) {              			 
-								echo '<option value="'.$row['ArtistID'].'">'.$row['ArtistName'].'</option>';
-						}
-			
-						echo "</select>";
-					?>
+							GetArtistList($dbConnect);
+						?>
 					</p>
 					<input type="submit" name="SubmitAlbum">
 					<input type="reset">
