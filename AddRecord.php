@@ -102,9 +102,25 @@
 						$songLength, $songTitle,
 						$songYear, $songFile);
 				
-				// Upload Song file to "Upload" folder
-				move_uploaded_file($temp, "upload/".$songFile);
-				echo "<p>\"$songTitle\" has been successfully uploaded</p>";
+				$dirName = "Upload";	// Directory to create
+				
+				// If the directory doesn't exist, create it
+				if(!is_dir($dirName))	
+					mkdir("$dirName");	
+				
+				if(is_dir($dirName))	// If Upload directory exists
+				{
+					try	// Try to upload to Upload folder
+					{
+						// Upload Song file to "Upload" folder
+						move_uploaded_file($temp, "$dirName/".$songFile);
+						echo "<p>\"$songTitle\" has been successfully uploaded</p>";
+					} 
+					catch(exception $e){
+						echo "<p>$e</p>";
+					}
+					
+				}
 			}
 		}
 		else
