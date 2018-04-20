@@ -12,7 +12,7 @@
 
 <?php
 	
-	$dbName = "songs";
+	$dbName = "Songs";
 	$showForm = false;
 	
 	// Connect to the database

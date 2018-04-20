@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS Customer (
 	 State VARCHAR(2),
 	 Zipcode INT(5),
 	 Wallet DECIMAL(13,2),
-	 Password VARCHAR(25) NOT NULL,
+	 Password VARCHAR(32) NOT NULL,
 	 UNIQUE (Email),
 	 PRIMARY KEY (CustomerID)
 );
