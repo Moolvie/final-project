@@ -1,0 +1,46 @@
+body{
+	text-align:center;
+}
+
+.container{
+	display: flex;
+	color: orange;
+	min-width:100%;
+	min-height:100%;
+	justify-content: center;
+	background-color:gray;
+}
+
+
+.header, .footer{
+	min-height:20px;
+	background-color:#ff8f8f;
+}
+
+.content  .col{
+	
+	background-color:blue;
+	text-align:center;
+}
+
+
+#right, #left{
+	background-color:#ffecef;
+	min-width:20%;
+}
+
+#right{
+	order:3;
+
+}
+
+#center{
+	order:2;
+	background-color:pink;
+	min-width:60%;
+}
+
+
+#left{
+	order:1;
+}
