@@ -1,3 +1,4 @@
+/* Container Styles */
 body{
 	text-align:center;
 }
@@ -29,10 +30,10 @@ body{
 	min-width:20%;
 }
 
-#right{
-	order:3;
-
+#left{
+	order:1;
 }
+
 
 #center{
 	order:2;
@@ -40,7 +41,18 @@ body{
 	min-width:60%;
 }
 
+#right{
+	order:3;
 
-#left{
-	order:1;
+}
+
+
+/* Content Styles */
+.navList li{
+	display:inline-block;
+	padding-right: 50px;
+}
+
+.searchForm{
+	float:right;
 }
