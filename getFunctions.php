@@ -1,3 +1,5 @@
+
+<?php
 // This document holds all of the Get functions for the project
 
 //////// START GET FUNCTIONS ////////
@@ -125,3 +127,4 @@
 		}
 	}
 //////// END GETLIST FUCTIONS ////////
+?>
