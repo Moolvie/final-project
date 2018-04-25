@@ -177,7 +177,7 @@
 			<!-- Submit New Song-->
 			<form method="post" action="AddRecord.php" enctype="multipart/form-data">
 				<?php
-					include("addFunctions.php");
+					include("getFunctions.php");
 				?>
 				<fieldset style= width:25%>
 					<legend><b><u>Add New Song</u></b></legend>
