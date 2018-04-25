@@ -1,21 +1,23 @@
 /* Container Styles */
 body{
 	text-align:center;
+	background-color:#3c3c3c;
+	color:orange;
 }
 
 .container{
 	display: flex;
-	color: orange;
 	min-width:100%;
 	min-height:100%;
 	justify-content: center;
-	background-color:gray;
+	
 }
 
 
 .header, .footer{
 	min-height:20px;
-	background-color:#ff8f8f;
+	background-color:#1d1d1d;
+	
 }
 
 .content  .col{
@@ -28,6 +30,7 @@ body{
 #right, #left{
 	background-color:#ffecef;
 	min-width:20%;
+	visibility:hidden;
 }
 
 #left{
@@ -37,13 +40,12 @@ body{
 
 #center{
 	order:2;
-	background-color:pink;
+	background-color:#1d1d1d;
 	min-width:60%;
 }
 
 #right{
 	order:3;
-
 }
 
 
