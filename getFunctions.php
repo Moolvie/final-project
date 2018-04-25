@@ -70,9 +70,11 @@
 	{
 		function GetAlbum($db, $albumTitle)
 		{
-			$sqlString = "SELECT AlbumID, AlbumTitle ".
-				"FROM album ".
-				"WHERE AlbumTitle LIKE '$albumTitle%' ";
+			$sqlString = "SELECT album.AlbumID, AlbumTitle, SongTitle AS Track ".
+				"FROM album, song ".
+				"WHERE AlbumTitle LIKE '$albumTitle%' AND
+					album.ArtistID = song.ArtistID AND
+					album.AlbumID = song.AlbumID; ";
 			
 			$result = mysqli_query($db, $sqlString);
 			if(!$result)
@@ -97,7 +99,8 @@
 //////// END GET FUNCTIONS ////////	
 
 //////// START GETLIST FUNCTIONS ////////
-	// Creates Select List of Albums
+
+	// Creates an html Select List of Albums
 	if (!function_exists('GetAlbumList'))
 	{
 		function GetAlbumList($db)
@@ -112,7 +115,7 @@
 		}
 	}
 	
-	// Creates Select List of Artists
+	// Creates an html Select List of Artists
 	if (!function_exists('GetArtistList'))
 	{
 		function GetArtistList($db)
