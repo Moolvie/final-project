@@ -5,15 +5,15 @@
 	// Adds a new song to the database 
 	if(!function_exists('AddSong'))
 	{
-		function AddSong($query, $db, $artistID, $albumID,$songLength, $songTitle, $songYear, $File)
+		function AddSong($query, $db, $artistID, $albumID,$songLength, $genre,$songTitle, $songYear, $File)
 		{
 			// run query 
 			if (!$query)
 				die($db->error);
 			else
 			{
-				$query = $db->query("INSERT IGNORE INTO song(ArtistID, AlbumID, SongID, SongLength, SongTitle, SongYear, SongFile)".
-				"VALUES('".$artistID."', '".$albumID."','', '".$songLength."', '".$songTitle."', '".$songYear."', '".$File."')");
+				$query = $db->query("INSERT IGNORE INTO song(ArtistID, AlbumID, SongID, SongGenre, SongLength, SongTitle, SongYear, SongFile)".
+				"VALUES('".$artistID."', '".$albumID."','', '".$genre."', '".$songLength."', '".$songTitle."', '".$songYear."', '".$File."')");
 				
 				if ($query === false)
 					echo "SQL error:".$db->error;
@@ -47,7 +47,7 @@
 	if(!function_exists('AddAlbum'))
 	{			
 		// Adds new album
-		function AddAlbum($query, $db, $albumTitle, $artistID)
+		function AddAlbum($query, $db, $albumTitle, $genre,$artistID)
 		{
 			// run query 
 				if (!$query)
@@ -58,8 +58,8 @@
 				else
 				{
 					
-					$query = $db->query("INSERT IGNORE INTO album(AlbumID, AlbumTitle, ArtistID) ".
-					"VALUES('', '".$albumTitle."', ".$artistID.")");
+					$query = $db->query("INSERT IGNORE INTO album(AlbumID, AlbumTitle, AlbumGenre,ArtistID) ".
+					"VALUES('', '".$albumTitle."', '".$genre."', ".$artistID.")");
 					
 					if ($query === false)
 						echo "SQL error:".$db->error;
@@ -98,12 +98,16 @@
 						return $valid;
 						
 					case UPLOAD_ERR_INI_SIZE:
+					throw new RuntimeException('The uploaded file exceeds the upload_max_filesize directive in php.ini');
+						break;
+						return $valid;
 					case UPLOAD_ERR_FORM_SIZE:
-						throw new RuntimeException('Exceeded filesize limit.');
+						throw new RuntimeException('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.');
+						break;
 						return $valid;
 						
 					default:
-						throw new RuntimeException('Unknown errors.');
+						throw new RuntimeException('Unknown error while uploading.');
 						return $valid;
 				}
 

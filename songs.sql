@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Album (
 	AlbumID INT NOT NULL AUTO_INCREMENT,
 	ArtistID INT NOT NULL,
 	AlbumTitle VARCHAR(255) NOT NULL,
+	AlbumGenre varchar(50),
 	UNIQUE (AlbumTitle),
 	PRIMARY KEY (AlbumID),
 	FOREIGN KEY (ArtistID) REFERENCES artist(ArtistID)
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS Song (
 	ArtistID INT  NOT NULL,
 	AlbumID INT REFERENCES album(AlbumID),
 	SongTitle VARCHAR(50)NOT NULL,
+	SongGenre varchar(50),
 	SongLength TIME NOT NULL,
 	SongYear YEAR NOT NULL,
 	SongFile VARCHAR(100) NOT NULL,
@@ -42,7 +44,6 @@ CREATE TABLE IF NOT EXISTS Customer (
 	City VARCHAR(10),
 	State VARCHAR(2),
 	Zipcode INT(5),
-	Wallet DECIMAL(13,2),
 	Password VARCHAR(32) NOT NULL,
 	UNIQUE (Email),
 	PRIMARY KEY (CustomerID)

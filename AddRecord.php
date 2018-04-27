@@ -42,6 +42,7 @@
 				
 				// Add the new artist
 				AddArtist($addArtist, $dbConnect, $artistName);
+				echo "\"$artistName\" has been successfully added.";
 			}
 		}
 		else
@@ -60,6 +61,7 @@
 			$songTitle = $_POST['SongTitle'];
 			$songLength = $_POST['SongLength'];
 			$songYear = (int)$_POST['SongYear'];
+			$songGenre = $_POST['Genre'];
 			$songFile = $_FILES['SongFile']['name'];
 			$temp = $_FILES['SongFile']['tmp_name'];
 			
@@ -84,6 +86,9 @@
 			elseif ($artistID == 'Select Artist' ||
 				$artistID == '') // If blank ID
 				echo '<p>You must select an <u>artist</u></p>';
+			elseif($songGenre == '' ||
+					$songGenre == 'Select Genre')
+				echo '<p>You must select a genre</p>';
 			elseif (!(validateFile("SongFile")) === true) // If valid 
 				echo "<p>File not valid</p>";
 			else
@@ -91,15 +96,17 @@
 				// Build query for artist Table
 				$addSong = $dbConnect->query("SELECT * FROM song ".
 					"WHERE ArtistID = $artistID AND ".
+					"AlbumID = $albumID AND ".
 					"SongTitle = '$songTitle' AND ".
 					"SongLength= '$songLength' AND ".
 					"SongYear= '$songYear' AND ".
-					"SongFile= '$songFile'");
+					"SongFile= '$songFile' AND ".
+					"SongGenre= '$songGenre'");
 				
 				// Add the new artist to the database
 				AddSong($addSong, $dbConnect, 
 						$artistID, $albumID, 
-						$songLength, $songTitle,
+						$songLength, $songGenre, $songTitle,
 						$songYear, $songFile);
 				
 				$dirName = "Upload";	// Directory to create
@@ -135,6 +142,7 @@
 			// Hold's all entered data
 			$artistID =(int)$_POST['ArtistID'];
 			$albumTitle = $_POST['AlbumTitle'];
+			$albumGenre = $_POST['Genre'];
 			
 			if($albumTitle == '') // If blank title
 				echo '<p>You must select an <u>album title</u></p>';
@@ -147,10 +155,13 @@
 				// Build query for album Table
 				$addAlbum = $dbConnect->query("SELECT * FROM album ".
 					"WHERE ArtistID = $artistID AND ".
-					"AlbumTitle = '$albumTitle' ");
+					"AlbumTitle = '$albumTitle' AND ".
+					"AlbumGenre = '$albumGenre'");
+					
 				// Add the New Album
 				AddAlbum($addAlbum, $dbConnect,
-						$albumTitle, $artistID);
+						$albumTitle, $albumGenre, $artistID);
+				echo "\"$albumTitle\" has been successfully added.";
 			}
 		}
 		else
@@ -206,6 +217,12 @@
 						?>
 					</p>
 					<p>
+						<label>Genre</label>
+						<?php
+							GetGenreList($dbConnect);
+						?>
+					</p>
+					<p>
 						<LABEL>Song File </Label>
 						<INPUT type="file" name="SongFile">
 					</p>
@@ -228,6 +245,12 @@
 					<LABEL>Artist (Which artist?)</Label>
 						<?php
 							GetArtistList($dbConnect);
+						?>
+					</p>
+					<p>
+						<label>Genre</label>
+						<?php
+							GetGenreList($dbConnect);
 						?>
 					</p>
 					<input type="submit" name="SubmitAlbum">
