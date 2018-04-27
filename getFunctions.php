@@ -105,18 +105,7 @@
 	if(!function_exists('GetFullSongList'))
 	{
 		function GetFullSongList($db)
-		{
-			// Create table head
-			echo "<tr>".
-				"<th>Track</th>".
-				"<th>Artist</th>".
-				"<th>Album</th>".
-				"<th>Length</th>".
-				"<th>Genre</th>".
-				"<th>Year</th>".
-				"<th></th>".
-				"</tr>";
-			
+		{			
 			// SQL query to run
 			// This query gets each song in the database once, 
 			// regardless of it not being linked to an album
@@ -132,6 +121,20 @@
 				die("Query Failed");
 			else
 			{
+				// Start the table
+				// class is songTable
+				echo "<table class=\"songTable\">";
+				
+				// Create table head
+				echo "<tr>".
+					"<th>Track</th>".
+					"<th>Artist</th>".
+					"<th>Album</th>".
+					"<th>Length</th>".
+					"<th>Genre</th>".
+					"<th>Year</th>".
+					"<th></th>".
+					"</tr>";
 				while($row = mysqli_fetch_assoc($result)) // While still fetching rows
 				{
 					// Create a row new row
@@ -169,8 +172,11 @@
 							// Else just put the value in the respective column
 							echo "<td>{$val}</td>";
 					}
+					// End the row
 					echo "</tr>";
 				}
+				// End the table
+				echo "</table>";
 			}
 		}
 	}
@@ -180,17 +186,6 @@
 	{
 		function GetSearchResults($db, $request)
 		{
-			// Create table head
-			echo "<tr>".
-				"<th>Track</th>".
-				"<th>Artist</th>".
-				"<th>Album</th>".
-				"<th>Length</th>".
-				"<th>Genre</th>".
-				"<th>Year</th>".
-				"<th></th>".
-				"</tr>";
-			
 			// SQL query to run
 			// This query gets each song in the database once, 
 			// regardless of it not being linked to an album
@@ -212,6 +207,19 @@
 				die("<h1>No results found</h1>");
 			else
 			{
+				// Start the table
+				// Table class is "songTable"
+				echo "<table class= \"songTable\">";
+				// Create table head
+				echo "<tr>".
+					"<th>Track</th>".
+					"<th>Artist</th>".
+					"<th>Album</th>".
+					"<th>Length</th>".
+					"<th>Genre</th>".
+					"<th>Year</th>".
+					"<th></th>".
+					"</tr>";
 				while($row = mysqli_fetch_assoc($result)) // While still fetching rows
 				{
 					// Create a row new row
@@ -249,8 +257,11 @@
 							// Else just put the value in the respective column
 							echo "<td>{$val}</td>";
 					}
+					// End the row
 					echo "</tr>";
 				}
+				// End the table
+				echo "</table>";
 			}
 		}
 	}

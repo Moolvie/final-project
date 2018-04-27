@@ -23,12 +23,10 @@ body{
 	width:100%;
 }
 
-.header{
-	position:fixed;
-}
-
 .footer{
 	bottom:0;
+	font-size:10px;
+	justify-content:center;
 }
 
 .container  .col{
