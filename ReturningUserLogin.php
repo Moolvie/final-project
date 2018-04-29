@@ -4,6 +4,10 @@
 <head>
 <title>Verify Returning User</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8849-1" />
+<link rel="stylesheet" type="text/css" href="mainStyle.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">		
+	
 </head>
 <style>
     label {
@@ -12,7 +16,10 @@
     }
 </style>
 <body>
-
+<header class="header">
+			<a href="Home.php" class="logo">MUSIC NOW</a>
+			
+</header>
 <form method="post" action="VerifyLogin.php">
 <fieldset style= width:50%>
 <legend>Returning User Login</legend>

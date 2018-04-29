@@ -11,7 +11,7 @@
 			<a href="Home.php" class="logo">MUSIC NOW</a>
 			<nav class= "nav">
 				<ul class= "navList">
-					<li><a href="">Sign/Log in</a></li>
+					<li><a href="login.php">Sign/Log in</a></li>
 					<li><a href="">PlayList</a></li>
 					<li><a href="">About</a></li>
 				</ul>

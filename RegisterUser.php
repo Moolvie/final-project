@@ -102,9 +102,9 @@ if ($errors == 0) {
 	
 	$SQLstring = "INSERT INTO $TableName " .
 		"(CustomerID, FirstName, LastName, Email, StreetAddress, City, State, Zipcode,
-		    Wallet, Password) " .
+		    Password) " .
 		" VALUES (NULL, '$first', '$last', '$email', '$address', '$city'," .
-		" '$state', '$zipcode', $wallet," .
+		" '$state', '$zipcode'," .
 		" '" . md5($password) . "')";
 	$QueryResult = @mysqli_query($DBConnect, $SQLstring);
 	if ($QueryResult === false) {
@@ -117,7 +117,7 @@ if ($errors == 0) {
 	else {
 		$customerID = mysqli_insert_id($DBConnect);
 	}
-	setcookie("customerID", $customerID);
+	//setcookie("customerID", $customerID);
 	//mysqli_close($DBConnect);
 }
 if ($errors == 0) {
@@ -126,7 +126,7 @@ if ($errors == 0) {
 }
 if ($errors == 0) {
 	$Body .= "<form method='post' " .
-	" action='AvailableSongs.php'>\n";
+	" action='songListTest.php'>\n";
 	$Body .= "<input type='hidden' name='customerID' " .
 	" value='$customerID'>\n";
 	$Body .= "<input type='submit' name='submit' " .

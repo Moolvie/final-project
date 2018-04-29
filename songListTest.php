@@ -1,10 +1,24 @@
 <!--Song list test-->
 
 <html>
-	<head>
-		<title>Song List Test</title>
+<head>
+		<link rel="stylesheet" type="text/css" href="mainStyle.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">		
 	</head>
+	
 	<body>
+	<!--Header Content-->
+	<header class="header">
+			<a href="Home.php" class="logo">MUSIC NOW</a>
+			<nav class= "nav">
+				<ul class= "navList">
+					<li><a href=""></a></li>
+					<li><a href="">PlayList</a></li>
+					<li><a href="">About</a></li>
+				</ul>
+			</nav>
+		</header>
 		<?php
 			// Connect to the database
 			$db = mysqli_connect("localhost","root","!root","songs");

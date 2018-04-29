@@ -4,24 +4,34 @@
 <head>
 <title>User Login</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8849-1" />
+<link rel="stylesheet" type="text/css" href="mainStyle.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">		
+	
 <style>
 	label {
 		display: inline-block;
-		width: 180px;
+		width: 250px;
+		text-align: right;
 	}
 </style>
 </head>
 <body>
+<!--Header Content-->
+<header class="header">
+			<a href="Home.php" class="logo">MUSIC NOW</a>
+			
+</header>
+<!--<p>New users, please complete the form to
+register as a user.</p> -->
 
-<p>New users, please complete the form to
-register as a user.</p>
-
-<h3>New User  Registration</h3>
+<!-- <h3>New User  Registration</h3> -->
+<div >
 <form method="post" action="RegisterUser.php">
 <fieldset style= width:50%>
 <legend>Create New Account</legend>
 <p>
-<label>Enter your first name</label>
+<label class="newuser">Enter your first name</label>
 <input type="text" name="first" />
 </p>
 <p>
@@ -119,6 +129,6 @@ value="Reset Registration Form" />
 value="Register" />
 </fieldset>
 </form>
-
+</div>
 </body>
 </html>

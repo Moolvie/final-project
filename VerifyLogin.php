@@ -57,7 +57,7 @@ if ($errors > 0) {
         indicated.</p>\n";
 }
 if ($errors == 0) {
-	echo "<p><a href='AvailableSongs.php?" .
+	echo "<p><a href='SongListTest.php?" .
 		"customerID=$customerID'>Available " .
 		" Songs</a></p>\n";
 }

@@ -34,7 +34,6 @@ body{
 	text-align:center;
 }
 
-
 #right, #left{
 	background: #ffd400;
 	min-width:10%;
@@ -116,7 +115,7 @@ and (min-width: 100px)
 .navList li{
 	display:inline-block;
 	margin:20 0 0 50;
-	float:left;
+	/* float:left; */
 }
 
 .navList a{
