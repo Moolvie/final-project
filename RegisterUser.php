@@ -1,4 +1,5 @@
 <?php
+session_start();
 $Body = "";
 
 $errors = 0;
@@ -115,9 +116,9 @@ if ($errors == 0) {
 		++$errors;
 	}
 	else {
-		$customerID = mysqli_insert_id($DBConnect);
+		$_SESSION['customerID'] = mysqli_insert_id($DBConnect);
 	}
-	//setcookie("customerID", $customerID);
+
 	//mysqli_close($DBConnect);
 }
 if ($errors == 0) {
