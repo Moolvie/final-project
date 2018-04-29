@@ -34,6 +34,13 @@ body{
 	text-align:center;
 }
 
+.box {
+	display: flex;
+	flex-wrap: wrap;
+	height: 400px;
+	align-content: space-between;
+  }
+
 #right, #left{
 	background: #ffd400;
 	min-width:10%;

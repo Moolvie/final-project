@@ -26,30 +26,30 @@
 register as a user.</p> -->
 
 <!-- <h3>New User  Registration</h3> -->
-<div >
+<div class="box">
 <form method="post" action="RegisterUser.php">
-<fieldset style= width:50%>
+<fieldset >
 <legend>Create New Account</legend>
 <p>
-<label class="newuser">Enter your first name</label>
-<input type="text" name="first" />
+<label class="">Enter your first name</label>
+<input class="" type="text" name="first" />
 </p>
 <p>
-<label>Enter your last name:</label>
+<label class="">Enter your last name:</label>
 <input type="text" name="last" />
 </p>
 <p>
-<label>Enter your street address</label>
+<label class="">Enter your street address</label>
 <input type="text" name="address" />
 </p>
 <p>
-<label>
+<label class="">
 Enter your City: 
 </label>
 <input type="text" name="city" />
 </p>
 <p>
-<label>Enter your state: </label>
+<label class="">Enter your state: </label>
 <select name="state">
 	<option value="">Select a State</option>
 	<option value="AL">Alabama</option>
@@ -106,18 +106,18 @@ Enter your City:
 </select>				
 </p>
 <p>
-<label>Enter your zipcode: </label>
+<label class="">Enter your zipcode: </label>
 <input type="text" name="zipcode"/>
 </p>
 <p>
-<label>Enter your e-mail address:</label>
+<label class="">Enter your e-mail address:</label>
 <input type="text" name="email" />
 </p>
 <p>
-<label>Enter a password for your account:</label>
+<label class="">Enter a password for your account:</label>
 <input type="password" name="password" />
 </p>
-<p><label>Confirm your password:</label>
+<p><label class="">Confirm your password:</label>
 <input type="password" name="password2" />
 </p>
 <p><em>(Passwords are case-sensitive and
