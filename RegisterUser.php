@@ -127,9 +127,8 @@ if ($errors == 0) {
 }
 if ($errors == 0) {
 	$Body .= "<form method='post' " .
-	" action='songListTest.php'>\n";
-	$Body .= "<input type='hidden' name='customerID' " .
-	" value='$customerID'>\n";
+	" action='songListTest.php?SID'>\n";
+	
 	$Body .= "<input type='submit' name='submit' " .
 	" value='View Available Songs'>\n";
 	$Body .= "</form>\n";
