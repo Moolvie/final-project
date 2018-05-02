@@ -117,7 +117,7 @@ if ($errors == 0) {
 	}
 	else {
 		$_SESSION['customerID'] = mysqli_insert_id($DBConnect);
-		$_SESSION['first'] = $first;
+		$_SESSION['name'] = $first;
 		header("Home.php");
 	}
 
@@ -125,12 +125,12 @@ if ($errors == 0) {
 }
 if ($errors == 0) {
 	$CustomerName = $first . " " . $last;
-	$_SESSION['first']= $first;
+	$_SESSION['name']= $first;
 	$Body .= "<p>Thank you for registering, $CustomerName.</p>\n";
 }
 if ($errors == 0) {
 	
-	$_SESSION['first'] = $first;
+	$_SESSION['name'] = $first;
 	$Body .= '<meta http-equiv="refresh" content="0; url=../pages/Home.php"/>';
 	
 	}
