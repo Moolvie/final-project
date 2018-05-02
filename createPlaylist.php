@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['customerID']
+$Body = "";
+
+$errors = 0;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -16,7 +23,7 @@ mysqli_select_db($db, 'songs');
 $query = 'SELECT * FROM song';
 
 if ($r = mysqli_query($db, $query)) { 
-    print "<form action='savePlaylist.php' method='POST'>
+    print "<form action='savePlaylist.php?<?php echo SID; ?>' method='POST'>
     <table  border=1>";
     while ($row = mysqli_fetch_array($r)) {
         print 
