@@ -128,12 +128,8 @@ if ($errors == 0) {
 	$Body .= "<p>Thank you for registering, $CustomerName.</p>\n";
 }
 if ($errors == 0) {
-	$Body .= "<form method='post' " .
-	" action='../tests/songListTest.php?SID'>\n";
+	$Body .= '<meta http-equiv="refresh" content="0; url=../pages/Home.php"/>';
 	
-	$Body .= "<input type='submit' name='submit' " .
-	" value='View Available Songs'>\n";
-	$Body .= "</form>\n";
 	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
