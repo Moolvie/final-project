@@ -66,6 +66,30 @@
 				}
 		}
 	}
+		
+	// Adds a new playlist to the database
+	if(!function_exists('AddPlaylist'))
+	{			
+		// Adds new album
+		function AddPlaylist($query, $db, $playlistName, $CustomerID)
+		{
+			// run query 
+				if (!$query)
+					die($db->error);
+				
+				if($query->num_rows > 0)
+					echo "duplicate playlist title\n";
+				else
+				{
+					
+					$query = $db->query("INSERT IGNORE INTO playlist(playlistID, CustomerID, playlistName) ".
+					"VALUES('', '".$CustomerID."', '".$playlistName.")");
+					
+					if ($query === false)
+						echo "SQL error:".$db->error;
+				}
+		}
+	}
 
 //////// END ADD FUNCTIONS ////////
 
