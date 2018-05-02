@@ -28,7 +28,7 @@ session_start();
 <!--<p>New users, please complete the form to
 register as a user.</p> -->
 
-<!-- <h3>New User  Registration</h3> -->
+ <h2>New User  Registration</h2>
 <div class="box">
 <form method="post" action="../plug-ins/RegisterUser.php? <?php echo SID; ?>">
 <fieldset >
