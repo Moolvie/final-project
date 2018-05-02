@@ -3,6 +3,6 @@
 	session_unset();
 	session_destroy();
 	echo "Successfully logged out";
-	header("Refresh: 2; ../pages/Home.php");
+        echo '<meta http-equiv="refresh" content="0; ../pages/Home.php"/>';
 	exit();
 ?>

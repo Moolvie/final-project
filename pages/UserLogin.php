@@ -30,7 +30,7 @@ register as a user.</p> -->
 
 <!-- <h3>New User  Registration</h3> -->
 <div class="box">
-<form method="post" action="RegisterUser.php? <?php echo SID; ?>">
+<form method="post" action="../plug-ins/RegisterUser.php? <?php echo SID; ?>">
 <fieldset >
 <legend>Create New Account</legend>
 <p>

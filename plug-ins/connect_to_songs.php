@@ -4,7 +4,7 @@
 $host = "localhost";
 $user = "root";
 $password= "!root";
-$dbName= "songs";
+$dbName= "Songs";
 
 // Connect to the database
 	$db = mysqli_connect($host, $user, $password, $dbName);

@@ -73,7 +73,7 @@ if ($errors == 0) {
 	}
 }
 
-$TableName = "Customer";
+$TableName = "customer";
 if ($errors == 0) {
 	$SQLstring = "SELECT count(*) FROM $TableName" . " WHERE email='" . $email. "'";
 	$QueryResult = @mysqli_query($DBConnect, $SQLstring);
@@ -129,7 +129,7 @@ if ($errors == 0) {
 }
 if ($errors == 0) {
 	$Body .= "<form method='post' " .
-	" action='songListTest.php?SID'>\n";
+	" action='../tests/songListTest.php?SID'>\n";
 	
 	$Body .= "<input type='submit' name='submit' " .
 	" value='View Available Songs'>\n";
