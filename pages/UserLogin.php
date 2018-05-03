@@ -15,20 +15,35 @@ session_start();
 	label {
 		display: inline-block;
 		width: 250px;
-		text-align: right;
+		text-align: left;
+		left:20px;
+	}
+	
+	body{
+		text-align:center;
+		background: #ffd400;
+		margin:auto;
+		color:black;
+		font-family: Roboto, sans-serif;
+		font-weight:normal;
+		font-size:16px;
 	}
 </style>
 </head>
 <body>
 <!--Header Content-->
 <header class="header">
-			<a href="Home.php" class="logo">MUSIC NOW</a>
-			
+		<a href="Home.php" class="logo">MUSIC NOW</a>
+		<ul class= navList>
+			<li><a href= ../pages/UserLogin.php>Sign Up</a></li>
+			<li><a href= >About</a></li>
+			<li>
+		</ul>
 </header>
 <!--<p>New users, please complete the form to
 register as a user.</p> -->
 
- <h2>New User  Registration</h2>
+<!-- <h3>New User  Registration</h3> -->
 <div class="box">
 <form method="post" action="../plug-ins/RegisterUser.php? <?php echo SID; ?>">
 <fieldset >

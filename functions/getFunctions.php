@@ -100,8 +100,6 @@
 		}
 	}
 
-	
-//////////////////////// CONTINUE WORKING ON THIS //////////////////////////	
 	if(!function_exists('GetFullSongList'))
 	{
 		function GetFullSongList($db)
@@ -126,7 +124,7 @@
 				echo "<table class='songTable'>";
 				
 				// Create form, and add top submit button
-				echo "<form target='_new' method='POST' action='../plug-ins/savePlaylist.php'>".
+				echo "<form method='POST' action='../pages/savePlaylist.php'>".
 					"<input id='songSubmit' class= 'submitSongs' type='submit' value='ADD' name='songsSubmit'>";
 				// Create table head
 				echo "<tr>".
@@ -179,9 +177,10 @@
 							// Else just put the value in the respective column
 							echo "<td>{$val}</td>";
 					}
-						echo "<td>".
-						"<input type='checkbox' name= 'pick[]' value='{$row["SongID"]}' >".
-						"</td>";
+					
+					echo "<td>".
+					"<input type='checkbox' name= 'pick[]' value='{$row["SongID"]}' >".
+					"</td>";
 					// End the row
 					echo "</tr>";
 				}
@@ -191,7 +190,6 @@
 			}
 		}
 	}
-//////////////////////// CONTINUE WORKING ON THIS //////////////////////////
 
 	// Displays a list of songs based on a search
 	if(!function_exists('GetSearchResults'))
@@ -201,7 +199,7 @@
 			// SQL query to run
 			// This query gets each song in the database once, 
 			// regardless of it not being linked to an album
-			$sql = "SELECT `SongTitle`, `ArtistName`, `AlbumTitle`, `SongLength`, `SongGenre`, `SongYear`, `SongFile`\n"
+			$sql = "SELECT `SongID`, `SongTitle`, `ArtistName`, `AlbumTitle`, `SongLength`, `SongGenre`, `SongYear`, `SongFile`\n"
 				. "FROM ((`song`\n"
 				. "       LEFT JOIN `artist` ON `song`.`ArtistID` = `artist`.`ArtistID`)\n"
 				. "       LEFT JOIN `album` ON `song`.`ArtistID` = `album`.`ArtistID`)\n"
@@ -220,8 +218,12 @@
 			else
 			{
 				// Start the table
-				// Table class is "songTable"
-				echo "<table class= \"songTable\">";
+				// class is songTable
+				echo "<table class='songTable'>";
+				
+				// Create form, and add top submit button
+				echo "<form method='POST' action='../pages/savePlaylist.php'>".
+					"<input id='songSubmit' class= 'submitSongs' type='submit' value='ADD' name='songsSubmit'>";
 				// Create table head
 				echo "<tr>".
 					"<th>Track</th>".
@@ -231,7 +233,6 @@
 					"<th>Genre</th>".
 					"<th>Year</th>".
 					"<th></th>".
-					"<th><th>".
 					"</tr>";
 				while($row = mysqli_fetch_assoc($result)) // While still fetching rows
 				{
@@ -248,13 +249,9 @@
 								"</audio>".
 								"</td>";
 								
-							echo "<td>".
-								"<form method=\"POST\" action='../plug-ins/addSongToPlaylist.php'>".
-								"<input type=\"submit\" value= '+'>".
-								"</form>".
-								"</td>";
-								
 						}
+						elseif($key == "SongID") // Skip if key is the song ID
+							continue;
 						elseif($key == "SongLength")	// If this key is the song length column
 						{
 							// Strip all leading zeroes and colons and store into it's own column
@@ -278,15 +275,64 @@
 							// Else just put the value in the respective column
 							echo "<td>{$val}</td>";
 					}
+					
+					echo "<td>".
+						"<input type='checkbox' name= 'pick[]' value='{$row["SongID"]}' >".
+						"</td>";
+						
 					// End the row
 					echo "</tr>";
 				}
-				// End the table
+				// End the form, and the table
+				echo "</form>";
 				echo "</table>";
 			}
 		}
 	}
+	
+	// Gets the list songs to be confirmed for a playlist
+	if(!function_exists('GetSongsToAddList'))
+	{
+		function GetSongsToAddList($db)
+		{
+			$query = 'SELECT * FROM song Where ';
+			
+			// Make sure A song was selected. If not, set to NULL
+			$song_count = isset($_POST['pick']) ? count($_POST['pick']) : $song_count = NULL;
+			
+			if($song_count == NULL)
+				echo "<h1>NO SONGS SELECTED</h1>";
+			else
+			{				
+				for($i = 0; $i < $song_count; $i++) {
+				  $songid = (int)mysqli_real_escape_string($db, $_POST['pick'][$i]); // Secures It
+				  $query .= 'SongID = ' . $songid;
+				  if($i+1 < $song_count) {
+					$query .= ' OR ';
+				  }
+				  $_SESSION['songs'] = $query;
+				}
+				
+				if ($r = mysqli_query($db, $query)) { 
+				   echo "<table class='songsToAddTable'>";
+					while ($row = mysqli_fetch_array($r)) {
+					   echo  "<tr> <td>{$row['SongID']}</td> <td>{$row['SongTitle']}</td> </tr>";
+					}
+				echo "</table>";
+				echo 
+				"<form method='POST' action='../pages/savePlaylist.php'>".
+				"<input type='text' name='PlaylistName' placeholder='Playlist Name'>".
+				"<input type='submit' name='CreatePlaylist' value='Create'>";
+				} else { 
+					print '<p style="color: blue">Error!</p>';
+				}
+			}
+		}
+	}
+	
 //////// END GET FUNCTIONS ////////	
+
+
 
 //////// START GETLIST FUNCTIONS ////////
 
@@ -335,6 +381,118 @@
 					"<option value=rock>rock</option>".
 					"<option value=Soul-RnB>Soul-RnB</option>".
 				"</select>";
+		}
+	}
+	
+	// Gets a list of playlists created by the user_error
+	if(!function_exists('GetPlaylists'))
+	{
+		function GetPlaylists($db, $userID)
+		{
+			$sql = "SELECT * ".
+					"FROM playlist ".
+					"WHERE CustomerID = $userID";
+					
+			$results = @mysqli_query($db, $sql);
+			if(!$results)
+				die("Query Failed");
+			elseif($results->num_rows == 0)
+				die("<h1>You Have No Playlists!</h1>");
+			else
+			{
+				while($row = mysqli_fetch_assoc($results))
+				{
+					echo "<h1 class='playlistLink'><a href = ../pages/PlaylistSongs.php/?playlist='{$row['playlistID']}'>".
+						"{$row['playlistName']}</a></h1><br>";
+				}
+			}
+		}
+	}
+	
+	// Gets the list of songs from a playlist created
+	if(!function_exists('GetPlaylistSongs'))
+	{
+		function GetPlaylistSongs($db, $playlistID)
+		{
+			// sql statement to get all songs from a playlist
+			$sql = "SELECT song.`SongID`,`SongTitle`, `ArtistName`, `AlbumTitle`, `SongLength`, `SongGenre`, `SongYear`, `SongFile`, playlist_songs.PlaylistID\n"
+				. "FROM playlist_songs, playlist, ((song\n"
+				. "       	LEFT JOIN `artist` ON `song`.`ArtistID` = `artist`.`ArtistID`)\n"
+				. "        LEFT JOIN `album` ON `song`.`ArtistID` = `album`.`ArtistID`)\n"
+				. "       	WHERE playlist.playlistID = playlist_songs.PlaylistID AND\n"
+				. "        playlist_songs.SongID = song.SongID AND\n"
+				. "        playlist.playlistID = $playlistID \n"
+				. "        ORDER BY `SongTitle` ASC, `ArtistName` ASC,`SongYear` ASC";
+			
+			$result = @mysqli_query($db, $sql);
+			if(!$result)
+				die("Query Failed ".$db->error);
+			elseif($result->num_rows == 0)
+				die("<h1>No Songs Found</h1>");
+			else
+			{
+				// Start the table
+				// class is songTable
+				echo "<table class='songTable'>";
+				
+				// Create table head
+				echo "<tr>".
+					"<th>Track</th>".
+					"<th>Artist</th>".
+					"<th>Album</th>".
+					"<th>Length</th>".
+					"<th>Genre</th>".
+					"<th>Year</th>".
+					"<th></th>".
+					"</tr>";
+				while($row = mysqli_fetch_assoc($result)) // While still fetching rows
+				{
+					// Create a row new row
+					echo "<tr>";
+					foreach($row as $key=>$val) // Foreach key and value 
+					{
+						if($key == "SongFile")	// If this is the filename column
+						{
+							// Create a new column displaying a audio tag to play the song
+							echo "<td>".
+								"<audio class=\"player\" controls= control >".
+								"<source src= \"../../upload/{$val}\" type='audio/mpeg'/>".
+								"</audio>".
+								"</td>";
+								
+						}
+						elseif($key == "SongID" || 
+								$key == "PlaylistID") // Skip if key is the song ID
+							continue;
+						elseif($key == "SongLength")	// If this key is the song length column
+						{
+							// Strip all leading zeroes and colons and store into it's own column
+							$val = ltrim($val, ":0");
+							echo "<td>{$val}</td>";
+						}
+						elseif($key == "AlbumTitle")
+						{
+							// If the album is blank, then display as 'N\A'
+							if($val == "")
+							{
+								$val = "N/A";
+								echo "<td>{$val}</td>";
+							}
+							else
+								// Otherwise just display the Title given
+								echo "<td>{$val}</td>"; 
+							
+						}
+						else
+							// Else just put the value in the respective column
+							echo "<td>{$val}</td>";
+					}
+					// End the row
+					echo "</tr>";
+				}
+				// End the table
+				echo "</table>";
+			}
 		}
 	}
 //////// END GETLIST FUCTIONS ////////

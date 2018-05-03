@@ -27,8 +27,6 @@ body{
 	flex-wrap: wrap;
 	height: 400px;
 	align-content: space-between;
-	position: relative;
-	margin-top: auto;
   }
 
 #right, #left{
@@ -170,6 +168,10 @@ a:hover{
 	color:#ff3664;
 }
 
+.playlistLink{
+	text-decoration:none;
+}
+
 .content{
 	width:100%;
 	min-height:100%;
@@ -190,6 +192,12 @@ a:hover{
 
 #login:hover{
 	cursor:pointer;
+}
+
+.submitSongs{
+	position:relative;
+	top:15px;
+	left:30%;
 }
 
 .songlist{
@@ -214,6 +222,17 @@ a:hover{
 	font-size:14px;
 	color:black;
 }
+
+.songsToAddTable{
+	border-collapse:collapse;
+	max-width:30%;
+	text-align:left;
+	margin:0 2.5% 0 2.5%;
+	font-size:14px;
+	color:black;
+	justify-content:center;
+}
+
 td, tr{
 	width:100px;
 }
@@ -225,10 +244,18 @@ td{
 	border-bottom:1px solid rgba(255, 255, 255, 0.53);
 }
 
-
 /************ END CONTENT STYLES*********/
 
 
+/************ START SIGN UP PAGE STYLES *********/
+#SignUpBody{
+	background: #ffd400;
+}
 
+.box{
+	justify-content:center;
+	padding-top:100px;
+}
+/************ END SIGN UP PAGE STYLES *********/
 
 /************ END *********/

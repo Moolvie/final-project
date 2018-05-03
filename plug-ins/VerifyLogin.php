@@ -57,6 +57,7 @@ echo "<p>Welcome back, $CustomerName!</p>\n";
 	$_SESSION['customerID'] = $customerID;
 	$_SESSION['name'] = $CustomerName;
 	$_SESSION['songs'] = NULL;
+	
 	echo "<p>Login successful, redirecting...</p>";
 	echo '<meta http-equiv="refresh" content="0; url=../pages/Home.php"/>';
 	exit();

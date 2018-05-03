@@ -22,7 +22,7 @@
 		// Insert nav content
 		$nav= "<ul class= navList>".
 				"<li>Hello, ".$_SESSION['name']."</li>".
-				"<li><a href= >Playlist</a></li>".
+				"<li><a href= 'Playlists.php'>Playlist</a></li>".
 				"<li><a href= >About</a></li>".
 				"<li><a href= ../plug-ins/logout.php>Log out</a></li>".
 				"</ul>";
@@ -62,16 +62,17 @@
 		echo "$logo";
 		
 		// Insert nav content
-			$nav= "<ul class= navList>".
-					"<li><a href= >About</a></li>".
-					"<li>".
-					"<form class='loginForm' method='POST' action='../plug-ins/VerifyLogin.php'>".
-					"<input class='em' type='text' name='email' placeholder='Email'>".
-					"<input class='pw' type='password' name='password' placeholder='Password'>".
-					"<input type='submit' name='login' value='Log In'>".
-					"</form>".
-					"</li>".
-					"</ul>";
+		$nav= "<ul class= navList>".
+				"<li><a href= ../pages/UserLogin.php>Sign Up</a></li>".
+				"<li><a href= >About</a></li>".
+				"<li>".
+				"<form class='loginForm' method='POST' action='../plug-ins/VerifyLogin.php'>".
+				"<input class='em' type='text' name='email' placeholder='Email'>".
+				"<input class='pw' type='password' name='password' placeholder='Password'>".
+				"<input type='submit' name='login' value='Log In'>".
+				"</form>".
+				"</li>".
+				"</ul>";
 		echo "$nav";
 		
 		echo endHeader;
