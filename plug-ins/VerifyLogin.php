@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -63,10 +60,10 @@ echo "<p>Welcome back, $CustomerName!</p>\n";
 	exit();
 }
 }
-if ($errors > 0) {
+/* if ($errors > 0) {
     echo "<p>Please fill out the new user registration.</p>" ;
 	echo '<meta http-equiv="refresh" content="0; url=../pages/UserLogin.php"/>';
-}
+} */
 if ($errors == 0) {
 	echo "<p><a href='SongListTest.php?" .
 		"customerID=$customerID'>Available " .
